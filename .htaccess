@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteBase /dnnote/
+
+RewriteCond $1 !^(index\.php|(.*)\.html|(.*)\.css|(.*)\.js|robots\.txt|(.*)\.jpg|(.*)\.png|(.*)\.gif)
+RewriteRule ^(.*)$ ./index.php/$1 [L]
+
