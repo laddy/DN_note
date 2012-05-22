@@ -1,0 +1,13 @@
+/* Add additional style
+======================================= */
+
+
+.show-grid {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.user-diary {
+  background-color: #eee;
+  border-radius: 3px;
+}

@@ -16,6 +16,17 @@ class Auth extends CI_Controller {
     */
     public function index()
     {
+        // if aleady login
+        if ( $this->session->userdata('login') ) {
+            redirect('/contact/?date='.date('Y-m-d'));
+            return TRUE;
+        }
+
+        $this->load->view('login');
+    }
+    
+    public function login()
+    {
         if ( $this->input->post() )
         {
             $this->db->select('id, facility_id, name, login, password, img_path');
@@ -23,11 +34,7 @@ class Auth extends CI_Controller {
             $this->db->where('password', streaching($this->input->post('pass'), $this->config->item('salt')));
             $query = $this->db->get('staff');
             
-                // header('Content-Type: text/javascript; charset=utf-8' );
-                // echo json_encode($query->result_array());
-                //echo "<span class=\"push_user\">{$u['name']}</span>";
-            
-            // auth ok
+            // auth check
             if ($query->num_rows() > 0)
             {
                 $user = $query->result_array();
@@ -40,15 +47,19 @@ class Auth extends CI_Controller {
                     'img_path'      => $user[0]['img_path'],
                     'login'     => TRUE
                 ));
-                redirect('/contact/');
+                redirect('/contact/?date='.date('Y-m-d'));
                 return TRUE;
             }
-            
-            exit();
         }
-        
-        
+        echo "ユーザ名・パスワードが異なります";
+        redirect(site_url('/')); 
+
+        return FALSE;
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
         redirect(site_url('/'));
     }
-    
 }

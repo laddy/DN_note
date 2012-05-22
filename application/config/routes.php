@@ -38,11 +38,11 @@
 |
 */
 
-$route['default_controller'] = "contact";
-$route['/contact/diary/(:any)/(:any)'] = "contact";
+$route['default_controller'] = "auth";
+// $route['/contact/diary/(:any)/(:any)'] = "contact";
 
 // $route['(:any)/(:any)']  = "contact/index/$1/$2";
-$route['checkts'] = 'contact/checkts';
+// $route['checkts'] = 'contact/checkts';
 /*
 $route['login']              = "top/login";
 $route['reply']              = "top/reply";

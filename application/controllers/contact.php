@@ -17,74 +17,37 @@ class Contact extends CI_Controller {
     */
     public function index()
     {
-
-/*
-        $query = $this->db->get('facility');
-        $this->view['fc'] = $query->result_array();
-*/
-        $this->load->view('login', $this->view);
-    }
-
-    public function diary()
-    {
-        if ( !empty($this->uri->rsegments[3] ) && !empty($this->uri->rsegments[4]) ) {
-            $this->db->like('diary_date', $this->uri->rsegments[4]);
-            $this->db->like('office_num', $this->uri->rsegments[3]);
+        // var_dump($this->session->all_userdata());
+        $day = $this->input->get('date') ? $this->input->get('date') : date('Y-m-d');
+        var_dump($day);
+     
+        // login check
+        if ( $this->session->userdata('login') ) {
+            $this->db->like('diary_date', $day);
+            $this->db->like('office_num', $this->session->userdata('facility'));
             $result = $this->db->get('contact');
             $row = $result->result_array();
 
+            // no data
             $dammy = array(
                 'id' => '',
                 'post_date' => '',
-                'office_num' => $this->uri->rsegments[3],
+                'office_num' => $this->session->userdata('facility'),
                 'update_date' => date('Y-m-d H:i:s'),
-                'diary_date' => date('Y-m-d'),
+                'diary_date' => $day,
                 'diary' => ''
             );
-                
+            
             $this->view['ct'] = !empty($row[0]) ? $row[0] : $dammy;
 
         }
-
-        $this->load->view('index', $this->view);
-    }
-
-    
-    /*
-     * @var checkts
-     * check time stamp data
-     */
-    public function checkts()
-    {
-        $this->output->enable_profiler(FALSE);
-
-       
-        if ( !empty($this->uri->rsegments[4]) && !empty($this->uri->rsegments[3]) ) 
-        {
-            $this->db->like('diary_date', $this->uri->rsegments[4]);
-            $this->db->like('office_num', $this->uri->rsegments[3]);
-            $result = $this->db->get('contact');
-            $row = $result->result_array();
-
-            $update = !empty($row[0]) ? $row[0]['update_date'] : '';
-
-            echo $update;
-
+        else {
+            redirect(site_url('/'));
         }
+
+        $this->load->view('diary', $this->view);
     }
-    
-    
-    /*
-     * @var postdiary
-     * post daiary text
-     */
-    public function postdiary()
-    {
-        $this->output->enable_profiler(FALSE);
-        
-        
-    
-    }
+
 }
 
 /* End of file welcome.php */

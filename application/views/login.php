@@ -18,6 +18,7 @@
 <div class="container">
 <a class="brand" href="<?=site_url('/')?>">DN note</a>
 
+
 </div>
 </div>
 </div>
@@ -29,7 +30,7 @@
 
 <!-- start header -->
 <header>
-<div class="head_img" style="width:940px; height:200px; background-image: url('img/top_img.jpg')">
+<div class="head_img">
 <h1>DN note</h1>
 <p>DN noteへようこそ</p>
 <p>This is a template for a simple marketing or informational website.</p>
@@ -37,7 +38,7 @@
 </header>
 <!-- end header -->
 
-<form class="well form-inline" action="<?=site_url('/');?>auth/" method="post">
+<form class="well form-inline" action="<?=site_url('/');?>auth/login/" method="post">
 ユーザ名: <input type="text" name="login" placeholder="ID" required>
 パスワード: <input type="password" name="pass" placeholder="Password" required>
 <input value="ログイン" type="submit" class="btn btn-primary" />
@@ -59,7 +60,6 @@
 */ ?>
 </form>
 
-<? var_dump($this->session->all_userdata()); ?>
 
 <footer>
 <p>&copy; YuyaTanaka</p>
